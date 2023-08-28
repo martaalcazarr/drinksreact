@@ -1,6 +1,9 @@
-import { Container, Form, Row, Col } from "react-bootstrap"
+import { Button, Form, Row, Col } from "react-bootstrap"
+import useCategories from "../hooks/useCategories"
 
 const DrinkForm = () => {
+
+    const {categories} = useCategories()
   return (
     <Form>
         <Row>
@@ -29,8 +32,26 @@ const DrinkForm = () => {
                         name="category"
                     >
                         <option>- Select one category --</option>
+                        {categories.map(category => (
+                            <option
+                            key={category.strCategory}
+                            value={category.strCategory}>
+                                {category.strCategory}
+                            </option>
+                        ))}
                     </Form.Select>
                 </Form.Group>
+            </Col>
+        </Row>
+        <Row className="justify-content-end">
+            <Col md={3}>
+                <Button
+                    variant="secondary"
+                    className="text-uppercase w-100"
+
+                >
+                    Search drinks
+                </Button>
             </Col>
         </Row>
     </Form>
