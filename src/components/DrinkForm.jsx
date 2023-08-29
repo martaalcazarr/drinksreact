@@ -1,11 +1,31 @@
-import { Button, Form, Row, Col } from "react-bootstrap"
+import { Button, Form, Row, Col, Alert } from "react-bootstrap"
 import useCategories from "../hooks/useCategories"
+import { useState } from "react"
 
 const DrinkForm = () => {
 
+    const [search, setSearch] = useState({
+        name: '',
+        category: ''
+    })
+    const [alert, setAlert] = useState('')
+
     const {categories} = useCategories()
+
+    const handleSubmit = e => {
+        e.preventDefault()
+
+        if(Object.values(search).includes('')){
+            setAlert('All fields are mandatory')
+            return
+        }
+        setAlert('')
+    }
   return (
-    <Form>
+    <Form
+        onSubmit={handleSubmit}
+    >
+        {alert && <Alert variant="danger" className="text-center">{alert}</Alert>}
         <Row>
             <Col md={6}>
                 <Form.Group>
@@ -18,6 +38,11 @@ const DrinkForm = () => {
                         type="text"
                         placeholder="Ex: Vodka, Whiskey..."
                         name="name"
+                        value={search.name}
+                        onChange={e => setSearch({
+                            ...search,
+                            [e.target.name] : e.target.value
+                        })}
                     />
                 </Form.Group>
             </Col>
@@ -30,6 +55,11 @@ const DrinkForm = () => {
                     <Form.Select
                         id="category"
                         name="category"
+                        value={search.category}
+                        onChange={e => setSearch({
+                            ...search,
+                            [e.target.name] : e.target.value
+                        })}
                     >
                         <option>- Select one category --</option>
                         {categories.map(category => (
@@ -48,6 +78,7 @@ const DrinkForm = () => {
                 <Button
                     variant="secondary"
                     className="text-uppercase w-100"
+                    type="submit"
 
                 >
                     Search drinks
