@@ -6,6 +6,7 @@ const DrinksContext = createContext()
 const DrinksProvider = ({children}) => {
 
     const [drinks, setDrinks] = useState([])
+    const [modal, setModal] = useState(false)
     
     const CheckDrink = async DrinkData => {
         try {
@@ -18,11 +19,17 @@ const DrinksProvider = ({children}) => {
         }
     }
 
+    const handleModalClick = () => {
+        setModal(!modal)
+    }
+
     return(
         <DrinksContext.Provider
             value={{
                 CheckDrink,
-                drinks
+                drinks,
+                handleModalClick,
+                modal
             }}
         >
             {children}
