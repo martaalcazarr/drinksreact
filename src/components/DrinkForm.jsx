@@ -79,8 +79,8 @@ const DrinkForm = () => {
         <Row className="justify-content-end">
             <Col md={3}>
                 <Button
-                    variant="secondary"
-                    className="text-uppercase w-100"
+                    variant="info"
+                    className="text-uppercase w-100 mt-3"
                     type="submit"
 
                 >
