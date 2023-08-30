@@ -3,7 +3,7 @@ import useDrinks from "../hooks/useDrinks"
 
 const DrinkModal = () => {
 
-    const {modal, handleModalClick, recipe} =useDrinks()
+    const {modal, handleModalClick, recipe, setRecipe} =useDrinks()
 
     const showIngredients = () => {
         let ingredients = []
@@ -21,7 +21,10 @@ const DrinkModal = () => {
   return (
     <Modal 
         show={modal}
-        onHide={handleModalClick}
+        onHide={() => {
+            handleModalClick()
+            setRecipe({})
+        }}
     >
         <Image 
             src={recipe.strDrinkThumb}
